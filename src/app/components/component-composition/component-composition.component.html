@@ -1,0 +1,36 @@
+<p><strong>ng-template</strong> works only with structural directives (*ngFor, *ngIF, *ngSwitch)</p>
+<label>Please insert div to show (A, B, C):</label> <br />
+<input type="text" [value]="divName" (keyup)="updateDiv($event)" />
+<div [ngSwitch]="divName">
+    <ng-template [ngSwitchCase]="'A'">AAAA</ng-template>
+    <ng-template [ngSwitchCase]="'B'">BBB</ng-template>
+    <ng-template [ngSwitchCase]="'C'">CCCC</ng-template>
+    <ng-template [ngSwitchDefault]>Other</ng-template>
+</div>
+
+<ng-container *ngTemplateOutlet="saltoDeLinea"></ng-container>
+
+<p><strong>ng-container</strong> to work with structural directives without introducing extra elements in the dom</p>
+<ng-container *ngIf="divName=== 'A'">
+    <label>Im inside of a ngIf</label> <br />
+    <div>
+        Yes, You typed A
+    </div>
+</ng-container>
+
+<ng-container *ngTemplateOutlet="saltoDeLinea"></ng-container>
+
+<p><strong>ng-content</strong> to project content</p>
+<app-project-content>
+    <h1>Im a projected title</h1>
+    <div>Im a projected div</div>
+    <span>Im other thing projected</span>
+</app-project-content>
+
+<ng-container *ngTemplateOutlet="saltoDeLinea"></ng-container>
+
+<ng-template #saltoDeLinea>
+    <hr/> 
+    *ngTemplateOutlet insert a template multiple times
+    <hr/> 
+</ng-template>

@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, Input, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OnlyAge, ProfileInterface, UserInterface, Wrapped } from '../../models/user.model';
 import { RouterModule } from '@angular/router';
@@ -12,6 +12,11 @@ import { RouterModule } from '@angular/router';
 })
 export class VariablesAndDataTypesComponent implements OnInit {
   inputValue = signal('');
+  @Input({ required: true }) bankName: string;
+
+  constructor(){
+    this.bankName = 'This bank has a name';
+  }
 
   ngOnInit () {
     const user:UserInterface = {
