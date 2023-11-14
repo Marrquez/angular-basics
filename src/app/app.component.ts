@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,5 +14,9 @@ import { RouterOutlet } from '@angular/router';
 export class AppComponent {
   title = 'angular-basics';
 
-  constructor(){}
+  constructor(private _router: Router){}
+
+  navigateTo(url:string):void {
+    this._router.navigate([url]);
+  }
 }

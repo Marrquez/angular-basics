@@ -1,11 +1,12 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OnlyAge, ProfileInterface, UserInterface, Wrapped } from '../../models/user.model';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-variables-and-data-types',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './variables-and-data-types.component.html',
   styleUrl: './variables-and-data-types.component.sass'
 })
