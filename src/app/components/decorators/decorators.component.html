@@ -1,7 +1,13 @@
-<p (click)="toggleColor()">Decorators component works!</p>
+<p>Decorators component works!</p>
 <p>
     <label>Please insert the width, current width is {{squareWidth}}:</label> <br />
     <input type="number" [value]="newWidth" (keyup)="updateWidth($event)" />
 </p>
 
-<div [@openClose]="isOpen ? 'open' : 'closed'" class="square" ></div>
+<div class="square" ></div>
+<br />
+<div [@openClose]="isOpen ? 'open' : 'closed'" class="rectangle" (click)="toggle()">
+    <p>
+        The box is now {{isOpen ? 'Open' : 'Closed'}}
+    </p>
+</div>
