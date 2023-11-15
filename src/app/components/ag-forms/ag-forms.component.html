@@ -1,8 +1,13 @@
 <h1>Reactive Forms</h1>
 <p>We define the form model directly in the component class.</p>
-<input type="text" [formControl]="favoriteColorControl" />
+<input type="number" [formControl]="favoriteColorControl" />
 <br />
 <hr />
 <h1>Template-driven</h1>
 <p>The form model is implicit.</p>
 <input type="text" [(ngModel)]="secondFavoriteColor" />
+<br />
+<hr />
+<h1>Build in pipe: {{myBday | date}}</h1>
+<h1>Custom pipe:  </h1>
+<h2>The square of {{fcValue}} is: {{ fcValue | exponentialStrength: 2 }} </h2>
