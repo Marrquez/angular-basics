@@ -5,9 +5,16 @@
 </p>
 
 <div class="square" ></div>
+
 <br />
+<hr />
 <div [@openClose]="isOpen ? 'open' : 'closed'" class="rectangle" (click)="toggle()">
     <p>
         The box is now {{isOpen ? 'Open' : 'Closed'}}
     </p>
 </div>
+
+<br />
+<hr />
+<button (click)="changeText()">Change text via ViewChild</button>
+<menu-item #MenuItemComponent (updateTextEvent)="updateText()" [menuText]="menuItemText"></menu-item>
