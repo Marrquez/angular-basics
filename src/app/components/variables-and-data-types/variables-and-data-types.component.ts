@@ -12,6 +12,8 @@ import { RouterModule } from '@angular/router';
 })
 export class VariablesAndDataTypesComponent implements OnInit {
   inputValue = signal('');
+  customMap = new Map<string, number>();
+  public mapValue = '';
   @Input({ required: true }) bankName: string;
 
   constructor(){
@@ -19,6 +21,7 @@ export class VariablesAndDataTypesComponent implements OnInit {
   }
 
   ngOnInit () {
+    this.customMap.set('key_1', 1).set('key_2', 2).set('key_3', 3);
     const user:UserInterface = {
       id: 'CM',
       name: 'Cristian',
@@ -35,6 +38,22 @@ export class VariablesAndDataTypesComponent implements OnInit {
     console.log(this.transforUIIntoPI(user));
     console.log('OnlyAge: ', fullName); 
     console.log('Generic: ', genericValue);
+
+    this.setMapValue();
+    this.printUniqueValues();
+  }
+
+  setMapValue(): void {
+    for(let entry of this.customMap) {
+      console.log('Entry in a map object: ', entry);
+    }
+  }
+
+  printUniqueValues(): void {
+    let values = [2, 3, 1, 3, 5, 2, 7, 6, 5, 5 ,2, 9, 0, 4, 8, 8, 8];
+
+    const setObj = new Set(values.sort());
+    console.log(setObj);
   }
 
   transforUIIntoPI(user: UserInterface, isActive: boolean = true): ProfileInterface {
