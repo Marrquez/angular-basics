@@ -78,6 +78,23 @@ export class TsAlgorithmsComponent {
     
     
     return arr.join().replace(/,/gi, '').substr(0,arr.length-2);
-}
+  }
+
+  /*
+  The check digit should be calculated by adding up all digits in each 
+  id. If the result of the sum is a number with more than a single digit,
+  another iteration is required, and the digits of the result should also
+  be added together. This process should repeat until a single-digit number
+  is calculated
+   */
+  createCheckDigit(membershipId: string): number {
+    let sum = membershipId.split('').reduce((sum, current) => sum + parseInt(current), 0);
+    
+    if(sum > 9) {
+      return this.createCheckDigit(sum.toString());
+    }
+    
+    return sum;
+  }
 }
 
