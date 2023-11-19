@@ -3,6 +3,7 @@ import { VariablesAndDataTypesComponent } from './components/variables-and-data-
 import { DecoratorsComponent } from './components/decorators/decorators.component';
 import { ComponentCompositionComponent } from './components/component-composition/component-composition.component';
 import { AgFormsComponent } from './components/ag-forms/ag-forms.component';
+import { TsAlgorithmsComponent } from './components/ts-algorithms/ts-algorithms.component';
 
 export const routes: Routes = [
     
@@ -26,10 +27,13 @@ export const routes: Routes = [
     {
         path: 'component-composition',
         component: ComponentCompositionComponent
-    }
-    ,
+    },
     {
         path: 'ag-forms',
         component: AgFormsComponent
+    },
+    {
+        path: 'ts-algorithms',
+        component: TsAlgorithmsComponent
     }
 ];
