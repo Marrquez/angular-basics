@@ -34,3 +34,9 @@
     *ngTemplateOutlet insert a template multiple times
     <hr/> 
 </ng-template>
+
+<ul>
+    <li *ngFor="let addr of addresses">
+        <app-address [address]="addr"></app-address>
+    </li>
+</ul>

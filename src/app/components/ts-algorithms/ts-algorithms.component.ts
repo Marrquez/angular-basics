@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Permission } from '../../models/user.model';
 
 @Component({
   selector: 'app-ts-algorithms',
@@ -8,8 +9,12 @@ import { CommonModule } from '@angular/common';
   templateUrl: './ts-algorithms.component.html',
   styleUrl: './ts-algorithms.component.sass'
 })
-export class TsAlgorithmsComponent {  
+export class TsAlgorithmsComponent implements OnInit {  
   title = 'TsAlgorithmsComponent!!';
+
+  ngOnInit () {
+    console.log(this.getPermissionList(Permission.Read | Permission.Write));
+  }
 
   /*
   Given five positive integers, find the minimum and maximum values 
@@ -95,6 +100,17 @@ export class TsAlgorithmsComponent {
     }
     
     return sum;
+  }
+
+  getPermissionList(permission: Permission): string[] {
+    const arr: string[] = [];
+    
+    for(const item in Permission){
+        if((permission & +Permission[item]) === +Permission[item]){
+            arr.push(item)
+        }
+    }
+    return [...arr];
   }
 }
 
