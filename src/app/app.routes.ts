@@ -4,6 +4,7 @@ import { DecoratorsComponent } from './components/decorators/decorators.componen
 import { ComponentCompositionComponent } from './components/component-composition/component-composition.component';
 import { AgFormsComponent } from './components/ag-forms/ag-forms.component';
 import { TsAlgorithmsComponent } from './components/ts-algorithms/ts-algorithms.component';
+import { NgrxBasicsComponent } from './components/ngrx-basics/ngrx-basics.component';
 
 export const routes: Routes = [
     
@@ -35,5 +36,9 @@ export const routes: Routes = [
     {
         path: 'ts-algorithms',
         component: TsAlgorithmsComponent
+    },
+    {
+        path: 'ngrx-basics',
+        component: NgrxBasicsComponent
     }
 ];

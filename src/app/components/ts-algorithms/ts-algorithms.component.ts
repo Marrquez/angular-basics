@@ -1,10 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Permission } from '../../models/user.model';
-import { Observable, map } from 'rxjs';
-import { Todo } from '../../store/interfaces';
-import { Store } from '@ngrx/store';
-import { Add, Remove, Toggle } from '../../store/actions';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -19,47 +15,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class TsAlgorithmsComponent implements OnInit {  
   title = 'TsAlgorithmsComponent!!';
-
-  todos$: Observable<Todo[]>;
-  newTodoText: string = '';
-  autorText: string = '';
-  constructor(private store: Store<{ todoState: Array<Todo> }>) {
-    this.todos$ = store
-      .select((state) => state.todoState)
-      .pipe(
-        map((todoList) => {
-          const autors = todoList.filter(this.uniqueValue);
-          console.log(autors);
-
-          // groupedData = [];
-
-          return todoList;
-        })
-      );
-  }
-
-  uniqueValue(value: any, index: number, array: any) {
-    return array.indexOf(value) === index;
-  }
-
-  addTodo() {
-    this.store.dispatch(
-      Add({ text: this.newTodoText || 'Untitled task', autor: this.autorText })
-    );
-    this.newTodoText = '';
-  }
-
-  groupElements() {
-    console.log();
-  }
-
-  removeTodo(id: string) {
-    this.store.dispatch(Remove({ id }));
-  }
-
-  toggleTodo(id: string) {
-    this.store.dispatch(Toggle({ id }));
-  }
 
   ngOnInit () {
     console.log(this.getPermissionList(Permission.Read | Permission.Write));

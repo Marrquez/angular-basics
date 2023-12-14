@@ -1,0 +1,51 @@
+<h1>My TODOs</h1>
+<form>
+  <input
+    type="text"
+    placeholder="Add new TODO task"
+    [(ngModel)]="newTodoText"
+    [ngModelOptions]="{ standalone: true }"
+  />
+  
+  <br />
+  <br />
+  
+  <input
+    type="text"
+    placeholder="Autor"
+    [(ngModel)]="autorText"
+    [ngModelOptions]="{ standalone: true }"
+  />
+
+  <br />
+  <br />
+  <button type="submit" (click)="addTodo()">Add</button>
+</form>
+<!-- <div
+  *ngFor="let todo of todos$ | async"
+  class="todo"
+  [ngClass]="{ 'not-todo-container': !todo.todo }"
+>
+  <span [ngClass]="{ 'not-todo': !todo.todo }">{{ todo.text }}</span>
+  <div>
+    <button (click)="removeTodo(todo.id)">Delete</button>
+    <button (click)="toggleTodo(todo.id)">Toggle</button>
+  </div>
+</div> -->
+<div
+  *ngFor="let todoByAutor of todos$ | async | keyvalue"
+>
+    Group {{todoByAutor.key}}
+    <div
+        *ngFor="let todo of todoByAutor.value"
+        class="todo"
+    >
+        <span [ngClass]="{ 'not-todo': !todo.todo }">{{ todo.text }}</span>
+        <div>
+            <button (click)="removeTodo(todo.id)">Delete</button>
+            <button (click)="toggleTodo(todo.id)">Toggle</button>
+        </div>
+    </div>
+
+    <hr />
+</div>
