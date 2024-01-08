@@ -21,7 +21,10 @@ export class VariablesAndDataTypesComponent implements OnInit {
   }
 
   ngOnInit () {
+    // Set values for a map
     this.customMap.set('key_1', 1).set('key_2', 2).set('key_3', 3);
+
+    // Instantiate an object
     const user:UserInterface = {
       id: 'CM',
       name: 'Cristian',
