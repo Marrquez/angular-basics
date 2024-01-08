@@ -18,7 +18,115 @@ export class TsAlgorithmsComponent implements OnInit {
 
   ngOnInit () {
     console.log(this.getPermissionList(Permission.Read | Permission.Write));
+
+    // this.createArray();
+    // this.addItemInArray();
+    // this.deleteItemFromArray();
+    // this.sumItemsFromArray();
+    this.findUniqValuesInArray();
   }
+
+  /*
+    Cteate an Array
+  */
+  createArray(): void {
+    let my_ar_ay_1: string[] = ['a', 'b', 'c'];
+    let my_multi_type_ar_ay: (string|number|boolean)[] = [1, 'b', 2, 'c', true];
+    let my_ar_ay_2: Array<string> = ['a', 'b', 'c'];
+
+    console.log('my_ar_ay_1', my_ar_ay_1);
+    console.log('my_multi_type_ar_ay', my_multi_type_ar_ay);
+    console.log('my_ar_ay_2', my_ar_ay_2);
+  }
+
+  /*
+    Add item to array
+  */
+  addItemInArray(): void {
+    let my_ar_ay: number[] = [1, 2, 3, 4];
+
+    console.log('original', my_ar_ay);
+
+    // add to the start
+    my_ar_ay.unshift(5);
+    console.log('with unshift: ', my_ar_ay);
+
+    // add to the end
+    my_ar_ay.push(6);
+    console.log('with push: ', my_ar_ay);
+
+    // add to a specifit location (start index, # of elements to replace, new element)
+    my_ar_ay.splice(2, 0, 7);
+    console.log('with splice: ', my_ar_ay);
+
+    // replace a specifit location (start index, # of elements to replace, new element)
+    my_ar_ay.splice(2, 2, 9);
+    console.log('with splice (replace): ', my_ar_ay);
+
+     // add using concat method
+     console.log('with concat: ', [8].concat(my_ar_ay));
+  }
+  
+  /*
+    Delete item from array
+  */
+  deleteItemFromArray(): void {
+    let my_ar_ay: number[] = [1, 2, 3, 4, 5, 6];
+
+    console.log('original', my_ar_ay);
+
+    // using delete operator: replace de element with undefined
+    delete my_ar_ay[2];
+    console.log('with delete operator: ', my_ar_ay);
+    console.log(typeof my_ar_ay[2]);
+
+    // remove last element
+    my_ar_ay.pop();
+    console.log('with pop operator: ', my_ar_ay);
+
+    // remove first element
+    my_ar_ay.shift();
+    console.log('with shift operator: ', my_ar_ay);
+
+    // remove specific element
+    my_ar_ay.splice(1, 1);
+    console.log('with splice operator: ', my_ar_ay);
+
+    // remove width filter/map callback
+    my_ar_ay = my_ar_ay.filter((ele: number) => ele !== 4);
+    console.log('with filter/map operator: ', my_ar_ay);
+  }
+
+  /*
+    sum items in array
+  */
+  sumItemsFromArray(): void {
+    let my_ar_ay: number[] = [1, 2, 3, 4, 5, 6];
+
+    console.log('original', my_ar_ay);
+
+    console.log('The sum is: ', my_ar_ay.reduce((sum, current) => sum + current, 0));
+  }
+
+  /*
+    find unique values in array
+  */
+  findUniqValuesInArray(): void {
+    let my_ar_ay: number[] = [1, 1, 2, 3, 4, 5, 3, 6, 3, 2, 6];
+    let uBySet = new Set<number>();
+
+    console.log('original', my_ar_ay);
+    
+    my_ar_ay.forEach((ele) => uBySet.add(ele));
+
+    console.log('Unique values using Set: ', uBySet);
+    console.log('Unique values using regular JS: ', my_ar_ay.filter(this.uniqueValue));
+  }
+
+  uniqueValue(value: any, index: number, array: any) {
+    return array.indexOf(value) === index;
+  }
+
 
   /*
   Given five positive integers, find the minimum and maximum values 
