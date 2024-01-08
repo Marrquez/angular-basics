@@ -23,7 +23,10 @@ export class TsAlgorithmsComponent implements OnInit {
     // this.addItemInArray();
     // this.deleteItemFromArray();
     // this.sumItemsFromArray();
-    this.findUniqValuesInArray();
+    // this.findUniqValuesInArray();
+
+    let arr: number[] = [9, 8, 2, 5, 1, 5, 7, 3, 4, 5, 6];
+    console.log(this.findSumOfNumbers2(arr, 3));
   }
 
   /*
@@ -120,11 +123,58 @@ export class TsAlgorithmsComponent implements OnInit {
     my_ar_ay.forEach((ele) => uBySet.add(ele));
 
     console.log('Unique values using Set: ', uBySet);
+    console.log('Unique values using Set as array: ', Array.from(uBySet.values()));
     console.log('Unique values using regular JS: ', my_ar_ay.filter(this.uniqueValue));
   }
 
   uniqueValue(value: any, index: number, array: any) {
     return array.indexOf(value) === index;
+  }
+
+  
+  /*
+    Find the first 2 numbers that sum gives the given value
+  */
+  findSumOfNumbers(arr: Array<number>, sumValue: number) {
+    console.log('original', arr);
+
+    for(let i = 0; i < arr.length; i++) {
+      for(let j = 0; j < arr.length; j++) {
+        if(i === j) {
+          break;
+        }
+
+        if (arr[i] + arr[j] === sumValue) {
+          return([arr[i], arr[j]]);
+        }
+      }
+    }
+
+    return 'No results found.';
+  }
+
+  // 1) For each element in the array, we get the difference between
+  // the given number and the current element in the array. 
+  // 2) We Put the current element into an object as a key.
+  // 3) If any element in the array (if any key in our object) matches 
+  // the difference between the given number and the new current 
+  // element, return some value.
+  // 4) Else, return negative result.
+  findSumOfNumbers2(arr: Array<number>, sumValue: number) {
+    let obj: any = {}
+    let diff;
+  
+    for (let i = 0; i < arr.length; i++) {
+      diff = sumValue - arr[i];
+  
+      if (obj[diff]) {
+        return [diff, arr[i]];
+      } else {
+        obj[arr[i]] = arr[i];
+      }
+    }
+
+    return 'No results found.';
   }
 
 
