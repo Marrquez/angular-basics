@@ -46,6 +46,41 @@
             <button (click)="toggleTodo(todo.id)">Toggle</button>
         </div>
     </div>
-
-    <hr />
 </div>
+
+<br />
+<hr />
+<br />
+
+<div>
+  <h1>Implementación de Método de Peticiones en Bloques</h1>
+  <h2>Objetivo</h2>
+  <p>
+     Se requiere implementar el metodo <b>request$</b> para que retorne un <b>minimo de {{minValidElements}} elementos</b> validos. Para conseguir este resultado disponemos de los metodos:
+  </p>
+  <h3>requestChunk$</h3>
+  <ul>
+    <li><b>Parametros</b>: Se le pasara el parametro from para indicar a partir de que indice debe de buscar</li>
+    <li><b>Limite de la paginacion</b>: Solo puede traer un maximo de 8 elementos por peticion</li>
+    <li><b>Validez de los elementos</b>: Se deberan descartar los elementos no validos. Los elementos retornados podran tener 3 formas:</li>
+      <ul>
+      <li><b>Valido</b>: Si la propiedad <b>value es igual a 'valid'</b>.</li>
+      <li><b>Invalido</b>: Si la propiedad <b>value es igual a null</b>.</li>
+      <li><b>Necesaria request adicional</b>: Si el valor de la propiedad <b>requestUrl es igual a 'url'</b>.
+      En este caso se debera de realizar una peticion a <b>requestFinalElement$</b> pasandole el index del elemento a comprobar para obtener el elemento real y poder comprobar si es valido o no.
+      </li>
+    </ul>
+  </ul>
+  <h3>requestFinalElement$</h3>
+  <ul>
+    <li><b>Parametros</b>: Se le pasara el parametro index del elemento sobre el que queremos obtener el elemento real</li>
+    <li><b>Validez de los elementos</b>: Aplican las mismas reglas de validez para valido e invalido que para los resultados de requestChunk$</li>
+  </ul>
+  <h2>Requisitos Específicos</h2>
+  <ul>
+    <li>Se debe de mantener el orden de los elementos</li>
+    <li>Se debera de seguir realizando peticiones hasta que se consigan almenos 16 elementos validos o la lista se termine y no existan mas elementos.</li>
+  </ul>      
+</div>
+<h2>Resultado final</h2>
+<div *ngFor="let item of result$ | async; let i = index">[{{i + 1}}] {{item | json}}</div>
