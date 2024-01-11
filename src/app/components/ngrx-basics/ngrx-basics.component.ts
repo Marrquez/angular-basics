@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Observable, expand, forkJoin, map, of, switchMap, from, tap, delay, EMPTY } from 'rxjs';
+import { Observable, expand, forkJoin, map, of, switchMap, from, tap, takeWhile, zip, interval, first, last, throttle, throttleTime, mergeMap, filter, BehaviorSubject, fromEvent, combineLatest } from 'rxjs';
 import { Todo } from '../../store/interfaces';
 import { Store } from '@ngrx/store';
 import { Add, Remove, Toggle } from '../../store/actions';
@@ -18,6 +18,21 @@ import { ApiMockService, RequestNeededElement } from '../../services/api-mock.se
   styleUrl: './ngrx-basics.component.sass'
 })
 export class NgrxBasicsComponent implements OnInit {
+  users: Array<any> = [
+    {id: '1', name: 'Jhon', isActive: true},
+    {id: '2', name: 'Jack', isActive: true},
+    {id: '3', name: 'Mike', isActive: true}
+  ];
+
+  user$ = new BehaviorSubject<{id: string; name: string, isActive: boolean} | null>(null);
+  documentClick$ = fromEvent(document, 'click');
+
+  users$ = of(this.users);
+  usernames$ = this.users$.pipe(map((users) => users.map((user) => user.name)));
+  filteredUsers$ = this.users$.pipe(filter((users) => users.every((user) => user.isActive)));
+
+  combineLatestData$ = combineLatest([this.users$, this.usernames$, this.filteredUsers$]).pipe(map(([users, usernames, filteredUsers]) => ({users, usernames, filteredUsers})));
+
   // basic operations
   myArray = [10, 20, 30];
   private myArrayOf$?: Observable<any>;
@@ -64,9 +79,76 @@ export class NgrxBasicsComponent implements OnInit {
 
   ngOnInit() {
     this.result$ = this.request$();
-    this.performBasicOperations();
-    this.createBasicObs();
+    // this.mapAndThrottle();
+    // this.performBasicOperations();
+    // this.createBasicObs();
+
+    // this.zipOperator();
+    // this.forkJoinOperator();
+
+    setTimeout(()=>{
+      this.user$.next({id: '4', name: 'Carlos', isActive: true});
+    }, 3000);
+
+    this.user$.subscribe((newUSer) => {
+      console.log('The new user: ', newUSer);
+    });
+
+    this.documentClick$.subscribe((e) => {
+      console.log('Dom clicked!!');
+    });
   }
+
+  private zipOperator():void {
+    const pais$ = of('Peru', 'Venezuela', 'Mexico');
+    const plato$ = of('Ceviche', 'Arepa', 'frijoles' ,'Tacos');
+
+    const zipObs$ = zip(pais$, plato$);
+
+    zipObs$.subscribe(result => {
+      console.log(result);
+    });
+  }
+
+  private forkJoinOperator(): void {
+    const pais$ = of('Peru', 'Venezuela', 'Mexico');
+    const plato$ = of('Ceviche', 'Arepa', 'frijoles' ,'Tacos');
+
+    const zipObs$ = forkJoin([pais$, plato$]);
+
+    zipObs$.subscribe(([result, result2]) => {
+      console.log(result);
+      console.log(result2);
+    });
+  }
+
+  mapAndThrottle(): void {
+    let myObs$: Observable<number> = interval(1000);
+    let observer = {
+      next: (value: any) => {
+        console.log(value); 
+      },
+      complete: () => {
+        console.log('Process completed!!');
+      }
+    };
+
+    // myObs$.subscribe((value)=> {
+    //   console.log(value);
+    // });
+
+    myObs$
+    .pipe(
+      takeWhile((value) => value < 10), 
+      map((value) => 'Number: ' + value), 
+      throttleTime(2000), // show value and wait 2s before show the next one
+    )
+    // .pipe(first())
+    // .pipe(last())
+    .subscribe(observer);
+  }
+
+  stopInterval(): void {}
 
   createBasicObs(): void {
     const myObs$: Observable<string> = new Observable(observer => {
