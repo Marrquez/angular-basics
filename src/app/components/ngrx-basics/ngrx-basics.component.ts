@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Observable, expand, forkJoin, map, of, switchMap, from, tap, takeWhile, zip, interval, first, last, throttle, throttleTime, mergeMap, filter, BehaviorSubject, fromEvent, combineLatest } from 'rxjs';
-import { Todo } from '../../store/interfaces';
+import { Todo, TodoState } from '../../store/interfaces';
 import { Store } from '@ngrx/store';
 import { Add, Remove, Toggle } from '../../store/actions';
 import { FormsModule } from '@angular/forms';
@@ -51,14 +51,14 @@ export class NgrxBasicsComponent implements OnInit {
   autorText: string = '';
 
   constructor(
-    private store: Store<{ todoState: Array<Todo> }>,
+    private store: Store<{ todoState: TodoState }>,
     private apiMockService: ApiMockService
   ) {
     // this.todos$ = store
     // .select((state) => state.todoState);
 
     this.todos$ = store
-      .select((state) => state.todoState)
+      .select((state) => state.todoState.todos)
       .pipe(
         map((todoList) => {
           let autors = new Set<string>();
