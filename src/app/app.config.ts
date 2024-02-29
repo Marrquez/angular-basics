@@ -8,6 +8,7 @@ import { StoreModule } from '@ngrx/store';
 import { todoReducer } from './store/reducer';
 import { ApiMockService } from './services/api-mock.service';
 import { HttpClientModule } from '@angular/common/http';
+import { reducers } from './store';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,7 +17,7 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(), 
     provideAnimations(),
     importProvidersFrom(
-      StoreModule.forRoot({todoState: todoReducer}),
+      StoreModule.forRoot(reducers),
       HttpClientModule
     )
   ]

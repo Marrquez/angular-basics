@@ -6,6 +6,8 @@ import { Store } from '@ngrx/store';
 import { Add, Remove, Toggle } from '../../store/actions';
 import { FormsModule } from '@angular/forms';
 import { ApiMockService, RequestNeededElement } from '../../services/api-mock.service';
+import { selectAllTodos } from '../../store/selectors';
+import { AppState } from '../../app.state';
 
 @Component({
   selector: 'app-ngrx-basics',
@@ -51,14 +53,14 @@ export class NgrxBasicsComponent implements OnInit {
   autorText: string = '';
 
   constructor(
-    private store: Store<{ todoState: TodoState }>,
+    private store: Store<AppState>,
     private apiMockService: ApiMockService
   ) {
     // this.todos$ = store
     // .select((state) => state.todoState);
 
     this.todos$ = store
-      .select((state) => state.todoState.todos)
+      .select(selectAllTodos)
       .pipe(
         map((todoList) => {
           let autors = new Set<string>();
